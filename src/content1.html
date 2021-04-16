@@ -1,0 +1,60 @@
+
+<!--树洞顶部，展示-->
+<div class="text-center row">
+    <h5>能把你的心音藏在[小北树洞]里吗？</h5>
+    <img src="images/bg.png" alt="bg_picture" class="img-thumbnail img-responsive top_img">
+</div>
+<div ng-controller="showWord">
+<!--loding-->
+    <div id="preloader_1" ng-show="loading" ng-init="loading=true">
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
+
+    <!--树洞展示信息-->
+    <ul >
+        <!--循环遍历li列表-->
+        <li ng-repeat="info in item" class="bg-info bg_space">
+            <!--个人信息展示区-->
+            <div >
+                <div>
+                    <img src="images/icon_head.svg" alt="head_icon" class="img-thumbnail img_li" >
+                    <p class="text-primary" ng-bind="info.nickname"></p>
+                </div>
+            </div>
+            <!--内容区-->
+            <div >
+                <div class="li_content" ng-bind="info.content"> </div>
+                <p  class="text-primary li_content" ng-bind="info.createtime">time</p>
+                <img src="images/getwords.svg" class="getword"  alt="评论" ng-click="wordShow($index)">
+            </div>
+            <!--评论展示区-->
+                <!--循环遍历评论-->
+            <div  class="repeat_2" ng-show="comment" ng-init="comment=true">
+                <span class="text-muted">路人:</span>
+                <p ng-bind="Senddata.$index.sentWord" class="text-info"></p>
+            </div>
+
+            <!--评论区-->
+            <form name="sentWords"  ng-submit="sent()" ng-show="info.success" >
+                <textarea name="sentWord"
+                          ng-model="Senddata.$index.sentWord"
+                          id="{{'textarea'+$index}}"
+                          rows="1"
+                          class="form-control sentWord"
+                          ng-minlength="1"
+                          ng-class="{'error':sentWords.sentWord.$invalid && sentWords.sentWord.$touched}"
+                          required
+                ></textarea>
+                <button class="btn btn-success sent_btn"
+                        ng-disabled="sentWords.$invalid"
+                        ng-click="wordShow($index)";
+                >发表</button>
+            </form>
+
+        </li>
+    </ul>
+</div>
